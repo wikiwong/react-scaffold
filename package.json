@@ -1,0 +1,35 @@
+{
+  "name": "react-scaffold",
+  "version": "1.0.0",
+  "description": "Leverages the latest webpack has to offer in order to quickly get started writing a Universal React application.",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "webpack": "^3.5.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --config ./build-configs/webpack.dev.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikiwong/react-scaffold.git"
+  },
+  "keywords": [
+    "react",
+    "scaffold",
+    "es6",
+    "webpack"
+  ],
+  "author": "Rob Wong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wikiwong/react-scaffold/issues"
+  },
+  "homepage": "https://github.com/wikiwong/react-scaffold#readme"
+}
