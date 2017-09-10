@@ -1,0 +1,9 @@
+{
+	"presets": ["env", "react"],
+	"plugins": [
+		[ "babel-plugin-css-modules-transform", {
+			"preprocessCss": './processSass.js',
+			"extensions": ['.scss']
+		}]
+	]
+}
