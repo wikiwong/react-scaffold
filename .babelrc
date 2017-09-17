@@ -1,9 +1,15 @@
 {
-	"presets": ["env", "react"],
-	"plugins": [
-		[ "babel-plugin-css-modules-transform", {
-			"preprocessCss": './processSass.js',
-			"extensions": ['.scss']
-		}]
-	]
+	"presets": [["env", { "modules": false }], "react"],
+	"env": {
+        "server": {
+            "plugins": [
+                [
+                    "css-modules-transform", {
+                        "generateScopedName": "[local]__[hash:6]",
+                        "extensions": [".css"]
+                    }
+                ]
+            ]
+        }
+    }
 }

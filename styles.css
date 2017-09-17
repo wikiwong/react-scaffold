@@ -1,12 +1,10 @@
-$black: black;
-
-:global(body) {
+body {
     display: flex;
-    background-color: $black;
+    background-color: black;
     color: white;
 }
 
-.app {
+.app__db3726 {
     width: 50px;
     height: 50px;
     background-color: blue;

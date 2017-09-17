@@ -4,10 +4,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: path.resolve('src', 'client', 'index.js')
+        app: [
+            'webpack-dev-server/client?http://localhost:9000/',
+            'webpack/hot/dev-server',
+            path.resolve('src', 'client', 'index.js')
+        ]
     },
+    target: 'web',
     output: {
         path: path.resolve("./dist"),
+        publicPath: 'http://localhost:9000/',
         filename: "[name].js"
     },
     module: {
@@ -24,7 +30,25 @@ module.exports = {
             test: /\.scss$/,
             exclude: /node_modules/,
             use: ExtractTextPlugin.extract({
-                use: [{
+                use: [
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            fallback: 'style-loader',
+                            importLoaders: 2,
+                            localIdentName: '[local]__[hash:6]',
+                            modules: true
+                        }
+                    },
+                    'postcss-loader',
+                    'sass-loader'
+                ]
+            })
+        }, {
+            test: /\.css$/,
+            exclude: /node_modules/,
+            use: ExtractTextPlugin.extract({
+                use: {
                     loader: 'css-loader',
                     options: {
                         fallback: 'style-loader',
@@ -32,21 +56,15 @@ module.exports = {
                         modules: true
                     }
                 },
-                'postcss-loader',
-                'sass-loader'
-                ]
             })
         }]
     },
     plugins: [
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin({
             filename: '[name].css',
             allChunks: true
         })
-    ],
-    devServer: {
-        contentBase: path.resolve("./dist"),
-        compress: true,
-        port: 9000
-    }
+    ]
 };

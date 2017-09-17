@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import styles from './styles.scss';
+import Header from '../Header';
+import styles from './styles.css';
 
 class App extends Component {
     constructor(props) {
@@ -24,13 +25,13 @@ class App extends Component {
         const { color } = this.props;
         const { height, width } = this.state;
         return (
-            <div id="app" className={styles.app} onClick={this.handleClick} style={{
+            <div className={styles.app} onClick={this.handleClick} style={{
                 height,
                 width,
                 backgroundColor: 'green',
                 color
             }}>
-                Got it now
+                <Header />
             </div>
         );
     }

@@ -1,16 +1,41 @@
-// import http from 'http';
-// import React from 'react';
-// import ReactDOMServer from 'react-dom/server';
-// import url from 'url';
-// import { App } from '../components/App';
-const http = require('http');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const url = require('url');
-const App = require('../components/App').default;
+import path from 'path';
+import http from 'http';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import url from 'url';
+import App from '../components/App';
 
 const domain = 'http://localhost';
 const port = '9000';
+
+if (process.env.NODE_ENV === 'development') {
+  const webpackDevServer = require('webpack-dev-server');
+  const webpack = require('webpack');
+  const config = require('../../build/webpack/webpack.dev.config.js');
+
+  const options = {
+    headers: { "Access-Control-Allow-Origin": "*" },
+    contentBase: path.resolve("./dist"),
+    compress: true,
+    hot: true,
+    inline: true,
+    port: 9000,
+    stats: {
+        colors: true,
+        hash: false,
+        timings: true,
+        chunks: false,
+        chunkModules: false,
+        modules: false
+    }
+  };
+  
+  const compiler = webpack(config);
+  const mockCdn = new webpackDevServer(compiler, options);
+  mockCdn.listen(9000, () => {
+    console.log('Mocking CDN to host client bundle on port 9000');
+  });
+}
 
 http.createServer((request, response) => {
   const { headers, method, url: reqUrl } = request;
@@ -28,11 +53,12 @@ http.createServer((request, response) => {
         <link rel="stylesheet" href="${domain}:${port}/app.css" />
       </head>
       <body>
-        ${ReactDOMServer.renderToString(
-            <App 
-              color={query.color}
-            />
-        )}
+        <div id="app">${
+          ReactDOMServer.renderToString(
+              <App 
+                color={query.color}
+              />
+          )}</div>
         <script src="${domain}:${port}/app.js"></script>
       </body>
       </html>
