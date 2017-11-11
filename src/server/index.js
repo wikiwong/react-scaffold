@@ -11,7 +11,7 @@ const port = '9000';
 if (process.env.NODE_ENV === 'development') {
   const webpackDevServer = require('webpack-dev-server');
   const webpack = require('webpack');
-  const config = require('../../build/webpack/webpack.dev.config.js');
+  const config = require('../../config/webpack.dev.js');
 
   const options = {
     headers: { "Access-Control-Allow-Origin": "*" },
